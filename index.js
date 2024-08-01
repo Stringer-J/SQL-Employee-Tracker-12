@@ -40,7 +40,7 @@ async function mainMenu() {
             //iterates over each row in formatResult
             formatResult.forEach(row => {
                 //puts array elements into same string with ' | ' separator and logs it to console
-                console.log(headers.map(header => row[header]).join('  '));
+                // console.log(headers.map(header => row[header]).join('  '));
             });
 
         // makes query when selecting view all roles
@@ -50,7 +50,8 @@ async function mainMenu() {
             console.table(result.rows);
             
         } else if(data.intro === 'View All Employees') {
-            console.log('1');
+            const result = await query('SELECT * FROM employee');
+            console.table(result.rows);
         } else if(data.intro === 'Add A Department') {
             console.log('1');
         } else if(data.intro === 'Add A Role') {
