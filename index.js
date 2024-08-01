@@ -5,30 +5,30 @@ inquirer
         {
             type: 'list',
             name: 'intro',
-            message: '=== Employee Tracker ===\n',
-            choices: ['view all departments',
-                      'view all roles',
-                      'view all employees',
-                      'add a department',
-                      'add a role',
-                      'add an employee',
-                      'update an employee role'
+            message: '\n\n=== Employee Tracker ===\nWhat would you like to do?',
+            choices: ['View All Departments',
+                      'View All Roles',
+                      'View All Employees',
+                      'Add A Department',
+                      'Add A Role',
+                      'Add An Employee',
+                      'Update An Employee Role'
                      ]
         }
     ]).then((data) => {
-        if(data.intro === 'view all departments') {
+        if(data.intro === 'View All Departments') {
             console.log('1');
-        } else if(data.intro === 'view all roles') {
+        } else if(data.intro === 'View All Roles') {
             console.log('1');
-        } else if(data.intro === 'view all employees') {
+        } else if(data.intro === 'View All Employees') {
             console.log('1');
-        } else if(data.intro === 'add a department') {
+        } else if(data.intro === 'Add A Department') {
             console.log('1');
-        } else if(data.intro === 'add a role') {
+        } else if(data.intro === 'Add A Role') {
             console.log('1');
-        } else if(data.intro === 'add an employee') {
+        } else if(data.intro === 'Add An Employee') {
             console.log('1');
-        } else if(data.intro === 'update an employee role') {
+        } else if(data.intro === 'Update An Employee Role') {
             console.log('1');
         } 
     })
