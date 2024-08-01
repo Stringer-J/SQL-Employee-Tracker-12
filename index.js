@@ -3,8 +3,16 @@ const inquirer = require('inquirer');
 inquirer
     .prompt([
         {
-            type: 'input',
+            type: 'list',
             name: 'intro',
-            message: 'what is up'
+            message: '=== Employee Tracker ===\n',
+            choices: ['view all departments',
+                      'view all roles',
+                      'view all employees',
+                      'add a department',
+                      'add a role',
+                      'add an employee',
+                      'update an employee role'
+                     ]
         }
     ])
