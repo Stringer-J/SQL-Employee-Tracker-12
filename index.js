@@ -57,7 +57,7 @@ async function mainMenu() {
         } else if(data.intro === 'Add A Role') {
             await addRole();
         } else if(data.intro === 'Add An Employee') {
-            await addEmpl();
+            await addEmp();
         } else if(data.intro === 'Update An Employee Role') {
             await updateEmpRole();
         } else if(data.intro === 'Exit') {
@@ -108,6 +108,35 @@ async function addRole() {
 
     await query('INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)', [answer.newTitle, answer.newSalary, answer.whatDept]);
     console.log('Role Added');
+}
+
+async function addEmp() {
+    const existingRole = await query('SELECT * FROM role');
+    const roleChoice = existingRole.rows.map(role => ({
+        name: role.title,
+        value: role.id
+    }));
+    const answer = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'empFirstName',
+            message: 'Enter first name:'
+        },
+        {
+            type: 'input',
+            name: 'empLastName',
+            message: 'Enter last name:'
+        },
+        {
+            type: 'list',
+            name: 'whatRole',
+            message: 'Employee role:',
+            choices: roleChoice
+        }
+    ]);
+
+    await query('INSERT INTO employee (first_name, last_name, role_id) VALUES ($1, $2, $3)', [answer.empFirstName, answer.empLastName, answer.whatRole]);
+    console.log('Employee Added');
 }
 
 
