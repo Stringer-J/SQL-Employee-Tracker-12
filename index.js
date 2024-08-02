@@ -79,5 +79,36 @@ async function addDept() {
     console.log('Department Added');
 }
 
+async function addRole() {
+
+    const existingDept = await query('SELECT * FROM department');
+    const deptChoice = existingDept.rows.map(dept => ({
+        name: dept.name,
+        value: dept.id
+    }));
+
+    const answer = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'newTitle',
+            message: 'Enter new role title:'
+        },
+        {
+            type: 'input',
+            name: 'newSalary',
+            message: 'Enter salary of new role:'
+        },
+        {
+            type: 'list',
+            name: 'whatDept',
+            message: 'Department of new role:',
+            choices: deptChoice
+        }
+    ]);
+
+    await query('INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)', [answer.newTitle, answer.newSalary, answer.whatDept]);
+    console.log('Role Added');
+}
+
 
 mainMenu();
