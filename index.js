@@ -53,17 +53,31 @@ async function mainMenu() {
             const result = await query('SELECT * FROM employee');
             console.table(result.rows);
         } else if(data.intro === 'Add A Department') {
-            console.log('1');
+            await addDept();
         } else if(data.intro === 'Add A Role') {
-            console.log('1');
+            await addRole();
         } else if(data.intro === 'Add An Employee') {
-            console.log('1');
+            await addEmpl();
         } else if(data.intro === 'Update An Employee Role') {
-            console.log('1');
+            await updateEmpRole();
         } else if(data.intro === 'Exit') {
             process.exit(0);
         }
         await mainMenu();
     }
+
+async function addDept() {
+    const answer = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'newDeptName',
+            message: 'Enter name of new department:'
+        }
+    ]);
+
+    await query('INSERT INTO department (name) VALUES ($1)', [answer.newDeptName]);
+    console.log('Department Added');
+}
+
 
 mainMenu();
