@@ -139,5 +139,36 @@ async function addEmp() {
     console.log('Employee Added');
 }
 
+async function updateEmpRole() {
+    const existingEmp = await query('SELECT * FROM employee');
+    const empChoice = existingEmp.rows.map(emp => ({
+        name: `${emp.first_name} ${emp.last_name}`,
+        value: emp.id
+    }));
+    const existingRoles = await query('SELECT * FROM role');
+    const empRoleChoice = existingRoles.rows.map(role => ({
+        name: role.title,
+        value: role.id
+    }));
+
+    const answer = await inquirer.prompt([
+        {
+            type: 'list',
+            name: 'empName',
+            message: 'Choose employee:',
+            choices: empChoice
+        },
+        {
+            type: 'list',
+            name: 'empRole',
+            message: 'Choose new role:',
+            choices: empRoleChoice
+        }
+    ]);
+
+    await query('UPDATE employee SET role_id = $2 WHERE id = $1', [answer.empName, answer.empRole]);
+    console.log('Employee Role Updated');
+}
+
 
 mainMenu();
