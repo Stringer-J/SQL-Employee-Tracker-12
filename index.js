@@ -14,10 +14,9 @@ const asciiArt = `
  |______|______|______|______|______|______|______|______|______|______|______|______|______|
 `;
 
+console.log(asciiArt);
 
 async function mainMenu() {
-
-    console.log(asciiArt);
 
     const data = await inquirer.prompt([
         {
@@ -36,38 +35,37 @@ async function mainMenu() {
         }
     ]);
 
-        //makes query when selecting view all departments
-        if(data.intro === 'View All Departments') {
-            //actual query
-            const result = await query('SELECT * FROM department');
-            const formattedTable = formatTable(result.rows);
-            console.table(formattedTable);
-
-        // makes query when selecting view all roles
-        } else if(data.intro === 'View All Roles') {
-        
-            const result = await query('SELECT * FROM role');
-            const formattedTable = formatTable(result.rows);
-            console.table(formattedTable);
-            
-        } else if(data.intro === 'View All Employees') {
-
-            const result = await query('SELECT * FROM employee');
-            const formattedTable = formatTable(result.rows);
-            console.table(formattedTable);
-
-        } else if(data.intro === 'Add A Department') {
+    switch(data.intro) {
+        case 'View All Departments':
+            const departments = await query('SELECT * FROM department');
+            console.table(formatTable(departments.rows));
+            break;
+        case 'View All Roles':
+            const roles = await query('SELECT * FROM role');
+            console.table(formatTable(roles.rows));
+            break;
+        case 'View All Employees':
+            const employees = await query('SELECT * FROM employee');
+            console.table(formatTable(employees.rows));
+            break;
+        case 'Add A Department':
             await addDept();
-        } else if(data.intro === 'Add A Role') {
+            break;
+        case 'Add A Role':
             await addRole();
-        } else if(data.intro === 'Add An Employee') {
+            break;
+        case 'Add An Employee':
             await addEmp();
-        } else if(data.intro === 'Update An Employee Role') {
+            break;
+        case 'Update An Employee Role':
             await updateEmpRole();
-        } else if(data.intro === 'Exit') {
+            break;
+        case 'Exit':
             process.exit(0);
-        }
-        await mainMenu();
+            break;
+    }
+
+    await mainMenu();
 }
 
 async function addDept() {
