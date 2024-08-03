@@ -38,31 +38,45 @@ async function mainMenu() {
     switch(data.intro) {
         case 'View All Departments':
             const departments = await query('SELECT * FROM department');
+            console.log();
             console.table(formatTable(departments.rows));
+            console.log();
             break;
         case 'View All Roles':
             const roles = await query('SELECT * FROM role');
+            console.log();
             console.table(formatTable(roles.rows));
+            console.log();
             break;
         case 'View All Employees':
             const employees = await query('SELECT * FROM employee');
+            console.log();
             console.table(formatTable(employees.rows));
+            console.log();
             break;
         case 'Add A Department':
+            console.log();
             await addDept();
+            console.log();
             break;
         case 'Add A Role':
+            console.log();
             await addRole();
+            console.log();
             break;
         case 'Add An Employee':
+            console.log();
             await addEmp();
+            console.log();
             break;
         case 'Update An Employee Role':
+            console.log();
             await updateEmpRole();
+            console.log();
             break;
         case 'Exit':
+            console.log();
             process.exit(0);
-            break;
     }
 
     await mainMenu();
