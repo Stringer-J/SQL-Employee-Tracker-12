@@ -43,13 +43,21 @@ async function mainMenu() {
             console.log();
             break;
         case 'View All Roles':
-            const roles = await query('SELECT * FROM role');
+            const roles = await query(`
+                SELECT role.id, role.title, department.name AS department, role.salary 
+                FROM role 
+                JOIN department ON role.department_id = department.id`
+            );
             console.log();
             console.table(formatTable(roles.rows));
             console.log();
             break;
         case 'View All Employees':
-            const employees = await query('SELECT * FROM employee');
+            const employees = await query(`
+                SELECT employee.id, employee.first_name, employee.last_name, role.title AS role
+                FROM employee
+                JOIN role ON role.id = employee.role_id`
+            );
             console.log();
             console.table(formatTable(employees.rows));
             console.log();

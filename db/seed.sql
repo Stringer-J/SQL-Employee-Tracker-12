@@ -7,7 +7,7 @@ INSERT INTO department (name) values
 
 INSERT INTO role (title, salary, department_id) values
 ('Accountant', '50000', '1'),
-('Marketing Coordinator', '70000', '2'),
+('Market Coordinator', '70000', '2'),
 ('Maintenance', '40000', '3'),
 ('Cloud Engineer', '60000', '4'),
 ('Administrator', '80000', '5');
