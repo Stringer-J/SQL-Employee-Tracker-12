@@ -51,7 +51,8 @@ async function mainMenu() {
             
         } else if(data.intro === 'View All Employees') {
             const result = await query('SELECT * FROM employee');
-            console.table(result.rows);
+            const formattedTable = formatTable(result.rows);
+            console.table(formattedTable);
         } else if(data.intro === 'Add A Department') {
             await addDept();
         } else if(data.intro === 'Add A Role') {
@@ -64,7 +65,7 @@ async function mainMenu() {
             process.exit(0);
         }
         await mainMenu();
-    }
+}
 
 async function addDept() {
     const answer = await inquirer.prompt([
@@ -170,5 +171,12 @@ async function updateEmpRole() {
     console.log('Employee Role Updated');
 }
 
+const formatTable = (data) => {
+    const columns = Object.keys(data[0]);
+    const header = columns.map(col => col.padEnd(20)).join(' | ');
+    const separator = columns.map(() => '-'.repeat(20)).join('-|-');
+    const rows = data.map(row => columns.map(col => String(row[col]).padEnd(20)).join(' | ')).join('\n');
+    return [header, separator, rows].join('\n');
+}
 
 mainMenu();
