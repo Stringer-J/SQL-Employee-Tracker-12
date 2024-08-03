@@ -1,7 +1,24 @@
 const inquirer = require('inquirer');
 const { query } = require('./db');
 
+const asciiArt = `
+  ______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______ 
+ |______|______|______|______|______|______|______|______|______|______|______|______|______|
+ | | |  ____|               | |                       |__   __|           | |             | |
+ | | | |__   _ __ ___  _ __ | | ___  _   _  ___  ___     | |_ __ __ _  ___| | _____ _ __  | |
+ | | |  __| | '_ \` _ \\| '_ \\| |/ _ \\| | | |/ _ \\/ _ \\    | | '__/ _\` |/ __| |/ / _ \\ '__| | |
+ | | | |____| | | | | | |_) | | (_) | |_| |  __/  __/    | | | | (_| | (__|   <  __/ |    | |
+ | | |______|_| |_| |_| .__/|_\\___/ \\__, |\\___|\\___|    |_|_|  \\__,_|\\___|_|\\_\\___|_|    | |
+ | |                  | |             __/ |                                               | |
+ |_|____ ______ ______|_|____ ______ |___/_ ______ ______ ______ ______ ______ ______ ____|_|
+ |______|______|______|______|______|______|______|______|______|______|______|______|______|
+`;
+
+
 async function mainMenu() {
+
+    console.log(asciiArt);
+
     const data = await inquirer.prompt([
         {
             type: 'list',
@@ -34,7 +51,7 @@ async function mainMenu() {
             console.table(formattedTable);
             
         } else if(data.intro === 'View All Employees') {
-            
+
             const result = await query('SELECT * FROM employee');
             const formattedTable = formatTable(result.rows);
             console.table(formattedTable);
