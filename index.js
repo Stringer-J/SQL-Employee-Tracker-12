@@ -54,9 +54,10 @@ async function mainMenu() {
             break;
         case 'View All Employees':
             const employees = await query(`
-                SELECT employee.id, employee.first_name, employee.last_name, role.title AS role
-                FROM employee
-                JOIN role ON role.id = employee.role_id`
+                SELECT e.id AS id, e.first_name AS first_name, e.last_name AS last_name, role.title AS role, COALESCE(CONCAT(m.first_name, ' ', m.last_name), 'None') AS manager
+                FROM employee e
+                JOIN role ON role.id = e.role_id
+                LEFT JOIN employee m ON e.manager_id = m.id`
             );
             console.log();
             console.table(formatTable(employees.rows));
